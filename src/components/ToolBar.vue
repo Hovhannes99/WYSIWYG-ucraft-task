@@ -3,16 +3,13 @@
     <div id="container">
       <div id="toolbar">
         <div class="toolbar-section">
-          <button  class="wysiwyg-button" :class="isBold ? 'wysiwyg-button-active' : ''"
-                  @click.prevent="bold">
+          <button  class="wysiwyg-button" :class="isBold ? 'wysiwyg-button-active' : ''" @click.prevent="bold">
             <FormatBold/>
           </button>
-          <button   class="wysiwyg-button" :class="isItalic ? 'wysiwyg-button-active' : ''"
-                  @click.prevent="italize">
+          <button   class="wysiwyg-button" :class="isItalic ? 'wysiwyg-button-active' : ''" @click.prevent="italize">
             <FormatItalic/>
           </button>
-          <button class="wysiwyg-button" :class="isUnderlined ? 'wysiwyg-button-active' : ''"
-                  @click.prevent="underline">
+          <button class="wysiwyg-button" :class="isUnderlined ? 'wysiwyg-button-active' : ''" @click.prevent="underline">
             <FormatUnderline/>
           </button>
           <button   class="wysiwyg-button"
@@ -25,16 +22,13 @@
           </button>
         </div>
         <div class="toolbar-section">
-          <button  class="wysiwyg-button" :class="isAlignedLeft ? 'wysiwyg-button-active' : ''"
-                  @click.prevent="alignLeft">
+          <button  class="wysiwyg-button" @click.prevent="alignLeft">
             <FormatAlignLeft/>
           </button>
-          <button   class="wysiwyg-button"
-                  :class="isAlignedCenter ? 'wysiwyg-button-active' : ''" @click.prevent="alignCenter">
+          <button   class="wysiwyg-button" @click.prevent="alignCenter">
             <FormatAlignCenter/>
           </button>
-          <button class="wysiwyg-button" :class="isAlignedRight ? 'wysiwyg-button-active' : ''"
-                  @click.prevent="alignRight">
+          <button class="wysiwyg-button" @click.prevent="alignRight">
             <FormatAlignRight/>
           </button>
           <button   class="wysiwyg-button" @click.prevent="orderedList">
@@ -43,8 +37,7 @@
           <button   class="wysiwyg-button" @click.prevent="insertUnorderedList">
             <FormatListBulleted/>
           </button>
-          <button  class="wysiwyg-button" :class="showColorPicker ? 'wysiwyg-button-active' : ''"
-                  @click.prevent="showColorPickerCall">
+          <button  class="wysiwyg-button" :class="showColorPicker ? 'wysiwyg-button-active' : ''" @click.prevent="showColorPickerCall">
             Color
           </button>
           <div v-if="showColorPicker" >
@@ -58,7 +51,7 @@
                   @click.prevent="showLinkOptions">
             <b style="font-size: 10px;">URL</b>
           </button>
-            <button   class="wysiwyg-button" :class="showLinkForm ? 'wysiwyg-button-active' : ''" @click.prevent="openImageUploader">
+            <button   class="wysiwyg-button" :class="showImageUploader ? 'wysiwyg-button-active' : ''" @click.prevent="openImageUploader">
               Image
             </button>
           <input type="file" id="image-uploader" ref="imageInput" v-if="showImageUploader" @change="handleImageUpload" accept="image/*" />
@@ -71,7 +64,7 @@
         </div>
       </div>
       <div v-if="showHeadingOptions" id="toolbar-options">
-        <button class="wysiwyg-button wysiwyg-button-loop" v-for="size in hSizes" :key="size"
+        <button class="wysiwyg-button wysiwyg-button-loop" v-for="size in paragraphSize" :key="size"
                 @click.prevent="heading(size)">{{ size }}
         </button>
       </div>
@@ -83,7 +76,10 @@
           <button @click.prevent="linkText = ''; linkURL = ''" class="wysiwyg-button">Clear</button>
         </form>
       </div>
-      <EditorContent :height="height"/>
+      <EditorContent
+          :height="height"
+          @handle-activity="handleActiveButton"
+      />
     </div>
   </div>
 </template>
@@ -99,8 +95,9 @@ import FormatListBulleted from 'vue-material-design-icons/FormatListBulleted.vue
 import FormatListNumbered from 'vue-material-design-icons/FormatListNumbered.vue';
 import FormatStrikethrough from 'vue-material-design-icons/FormatStrikethrough.vue';
 import FormatUnderline from 'vue-material-design-icons/FormatUnderline.vue';
-import {nextTick, onMounted, defineProps, ref, computed, defineEmits, watch} from "vue";
+import {nextTick, onMounted, defineProps, ref, computed, defineEmits} from "vue";
 import EditorContent from "@/components/EditorContent.vue";
+import ImageContainerFactory from "@/helper/createElements";
 
 const isBold = ref(false)
 const isItalic = ref(false)
@@ -119,7 +116,15 @@ const showImageUploader = ref(false);
 let imageInput = document.getElementById('image-uploader')
 const linkText = ref('')
 const linkURL = ref('')
+
+
 const emits = defineEmits(['input'])
+defineProps({
+  height: {
+    type: [Number, String],
+    default: 700
+  }
+})
 
 const getValue = () => {
   emits('input', document.getElementById('editor').innerHTML);
@@ -136,25 +141,29 @@ const openImageUploader = () => {
 const handleImageUpload = (event) => {
   const file = event.target.files[0];
   if (!file || !file.type.startsWith('image/')) {
-    console.warn('Invalid image file uploaded.');
     return;
   }
   const reader = new FileReader();
   reader.onload = (e) => {
     const imageUrl = e.target.result;
-    insertImage(imageUrl);
+    showImageUploader.value = false
+    insertImageContainer(imageUrl);
   };
   reader.readAsDataURL(file);
 };
 
-const insertImage = (imageUrl) => {
-  const img = document.createElement('img');
-  img.src = imageUrl;
-  img.style.maxWidth = '450px';
-  img.style.maxHeight = '450px';
-  document.getElementById('editor').appendChild(img);
+const insertImageContainer = (imageUrl) => {
+  ImageContainerFactory.create(imageUrl)
   getValue();
 };
+const handleActiveButton = (value) => {
+  const size = value.fontSize.split("px")[0]
+  const decoration = value.textDecoration.split(" ")[0]
+  isUnderlined.value = decoration !== 'none'
+  isItalic.value = value.fontStyle !== 'normal';
+  isBold.value = Number(value.fontWeight) > 400;
+  isHeading.value = Number(size) > 16;
+}
 
 onMounted(() => {
   nextTick(() => {
@@ -163,18 +172,8 @@ onMounted(() => {
     }, false);
   });
 })
-const props = defineProps({
-  value: {
-    type: String,
-    default:'Type here'
-  },
-  height: {
-    type: [Number, String],
-    default: 700
-  }
-})
 
-const hSizes = computed(() => {
+const paragraphSize = computed(() => {
   let sizes = [];
   for (let x = 1; x <= 6; x++) {
     sizes.push(`H${x}`);
@@ -182,7 +181,6 @@ const hSizes = computed(() => {
   sizes.push('Clear');
   return sizes;
 })
-
 
 const exec = (...args) => {
   document.execCommand(...args);
@@ -249,22 +247,6 @@ const orderedList = () => {
 const insertUnorderedList = () => {
   exec('insertUnorderedList');
 }
-
-watch(
-    props.value,
-    (val) => {
-      if (val) {
-        setTimeout(() => {
-          const editor = document.getElementById('editor');
-          if (editor && !editor.innerHTML) {
-            editor.innerHTML = val;
-          }
-        }, 100);
-      }
-    },
-    {immediate: true}
-);
-
 </script>
 
 <style scoped>
@@ -281,7 +263,6 @@ input:focus {
 #container {
   border: 1px solid lightgrey;
 }
-
 
 
 #toolbar {
