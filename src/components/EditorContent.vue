@@ -1,6 +1,6 @@
 <template>
   <div id="body" :style="{'height': `${height}px`}">
-    <div id="editor" contenteditable :style="{'min-height': `${height}px`}" v-on:mouseup="handleText">
+    <div id="editor" contenteditable :style="{'min-height': `${height}px`}" v-on:mouseup="handleSelectedText">
       <p>Type your text</p>
     </div>
   </div>
@@ -17,7 +17,7 @@ defineProps({
 })
 const emits =  defineEmits(['handleActivity'])
 
-const handleText = () => {
+const handleSelectedText = () => {
   const selection = window.getSelection();
   if (selection && !selection.isCollapsed) {
     const range = selection.getRangeAt(0);

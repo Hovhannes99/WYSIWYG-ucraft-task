@@ -1,0 +1,32 @@
+#app {
+    margin: 0;
+    padding: 0;
+}
+
+
+.wysiwyg-button {
+    height: 28px;
+    min-width: 30px;
+    background-color: white;
+    cursor: pointer;
+    text-align: center;
+    padding: 2px;
+}
+
+.wysiwyg-button:hover {
+    background-color: lightblue;
+}
+
+.wysiwyg-button-active {
+    background-color: lightblue;
+}
+
+.wysiwyg-color {
+    position: relative;
+    height: 10px;
+}
+.wysiwyg-color .color-input {
+    position: absolute;
+    right: 0;
+}
+
