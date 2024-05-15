@@ -1,7 +1,7 @@
 <template>
   <h1>Enter your opinion :) </h1>
-  <ToolBar/>
+  <EditorMain />
 </template>
 <script setup>
-import ToolBar from "@/components/ToolBar.vue";
+import EditorMain from "@/components/EditorMain.vue";
 </script>

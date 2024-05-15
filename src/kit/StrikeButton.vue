@@ -1,12 +1,11 @@
 <template>
   <button  class="wysiwyg-button" :class="isStrikedThrough ? 'wysiwyg-button-active' : ''" @click.prevent="strikeThrough">
-    <FormatStrikethrough/>
+   Strikethrough
   </button>
 </template>
 <script setup>
 import {defineProps, ref, watch} from "vue"
 import executeCommand from "@/helper/executeCommand";
-import FormatStrikethrough from 'vue-material-design-icons/FormatStrikethrough.vue';
 
 
 

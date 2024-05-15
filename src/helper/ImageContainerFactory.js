@@ -4,7 +4,7 @@ export default class ImageContainerFactory {
     }
 }
 
-class ImgElement {
+export class ImgElement {
     constructor(imageUrl, generateId) {
         this.img = document.createElement('img');
         this.img.src = imageUrl;
@@ -19,7 +19,7 @@ class ImgElement {
     }
 }
 
-class DivElement {
+export class DivElement {
     constructor(generateId) {
         this.div = document.createElement('div');
         this.div.setAttribute('id', `img_wrapper ${generateId}`);
@@ -36,7 +36,7 @@ class DivElement {
     }
 }
 
-class ButtonElement {
+export class ButtonElement {
     constructor(type, generateId) {
         this.button = document.createElement('button');
         this.button.setAttribute('id', `${type}-${generateId}`);
@@ -52,7 +52,7 @@ class ButtonElement {
     }
 }
 
-class ImageContainer {
+export class ImageContainer {
     constructor(imageUrl) {
         this.imageUrl = imageUrl;
         this.generateId = new Date().getTime();
@@ -72,7 +72,8 @@ class ImageContainer {
 
         this.setupListeners();
         this.appendElements();
-
+        const test = document.getElementById('editor');
+        console.log(test, 'test')
         document.getElementById('editor').appendChild(this.div);
     }
 
@@ -101,8 +102,8 @@ class ImageContainer {
     }
 
     appendElements() {
-        this.div.appendChild(this.img);
-        this.div.appendChild(this.buttonRemove);
-        this.div.appendChild(this.buttonRotate);
+        this.div.appendChild(this?.img);
+        this.div.appendChild(this?.buttonRemove);
+        this.div.appendChild(this?.buttonRotate);
     }
 }

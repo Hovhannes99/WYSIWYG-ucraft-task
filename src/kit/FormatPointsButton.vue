@@ -1,11 +1,10 @@
 <template>
   <button  class="wysiwyg-button" @click.prevent="insertUnorderedList">
-    <FormatListBulleted/>
+    Point List
   </button>
 </template>
 <script setup>
 import executeCommand from "@/helper/executeCommand";
-import FormatListBulleted from "vue-material-design-icons/FormatListBulleted.vue";
 const insertUnorderedList = () => {
   executeCommand('insertUnorderedList');
 }

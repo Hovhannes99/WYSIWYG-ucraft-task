@@ -1,6 +1,6 @@
 <template>
     <button class="wysiwyg-button" :class="isHeading ? 'wysiwyg-button-active' : ''" @click.prevent="showHeadings">
-      <FormatHeader1/>
+       Font Size
     </button>
     <div v-if="showHeadingOptions" class="buttons">
       <div class="wysiwyg-button-loop">
@@ -13,7 +13,6 @@
 </template>
 <script setup>
 import {computed, defineProps, ref, watch} from "vue"
-import FormatHeader1 from "vue-material-design-icons/FormatHeader1.vue";
 import executeCommand from "@/helper/executeCommand";
 
 

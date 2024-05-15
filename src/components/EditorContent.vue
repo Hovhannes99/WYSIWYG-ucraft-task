@@ -11,8 +11,7 @@ import {defineProps, defineEmits} from 'vue'
 defineProps({
   height:{
     type: Number,
-    default: 0,
-    required: true
+    default: 700
   }
 })
 const emits =  defineEmits(['handleActivity'])

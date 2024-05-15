@@ -1,10 +1,10 @@
 <template>
   <button  class="wysiwyg-button" :class="isBold ? 'wysiwyg-button-active' : ''" @click.prevent="bold">
-    <FormatBold/>
+     Bold
   </button>
 </template>
 <script setup>
-import FormatBold from "vue-material-design-icons/FormatBold.vue";
+
 import {defineProps, ref, watch} from "vue"
 import executeCommand from "@/helper/executeCommand";
 

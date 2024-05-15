@@ -1,10 +1,9 @@
 <template>
   <button  class="wysiwyg-button" :class="isItalic ? 'wysiwyg-button-active' : ''" @click.prevent="italic">
-    <FormatItalic/>
+    Italic
   </button>
 </template>
 <script setup>
-import FormatItalic from 'vue-material-design-icons/FormatItalic.vue';
 import {defineProps, ref, watch} from "vue"
 import executeCommand from "@/helper/executeCommand";
 

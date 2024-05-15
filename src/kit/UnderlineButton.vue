@@ -1,12 +1,11 @@
 <template>
   <button  class="wysiwyg-button" :class="isUnderlined ? 'wysiwyg-button-active' : ''" @click.prevent="underline">
-    <FormatUnderline/>
+   Underline
   </button>
 </template>
 <script setup>
 import {defineProps, ref, watch} from "vue"
 import executeCommand from "@/helper/executeCommand";
-import FormatUnderline from 'vue-material-design-icons/FormatUnderline.vue';
 
 
 const isUnderlined = ref(false)

@@ -28,6 +28,7 @@ const handleImageUpload = (event) => {
 };
 
 const insertImageContainer = (imageUrl) => {
+  console.log(imageUrl, 'urll')
   ImageContainerFactory.create(imageUrl)
 };
 const openImageUploader = () => {
