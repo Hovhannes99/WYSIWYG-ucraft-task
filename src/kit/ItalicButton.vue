@@ -1,5 +1,5 @@
 <template>
-  <button  class="wysiwyg-button" :class="isItalic ? 'wysiwyg-button-active' : ''" @click.prevent="italic">
+  <button  name="italic-btn"  class="wysiwyg-button" :class="isItalic ? 'wysiwyg-button-active' : ''" @click.prevent="italic">
     Italic
   </button>
 </template>

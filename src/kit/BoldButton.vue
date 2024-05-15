@@ -1,5 +1,5 @@
 <template>
-  <button  class="wysiwyg-button" :class="isBold ? 'wysiwyg-button-active' : ''" @click.prevent="bold">
+  <button name="bold-btn" class="wysiwyg-button" :class="isBold ? 'wysiwyg-button-active' : ''" @click.prevent="bold">
      Bold
   </button>
 </template>

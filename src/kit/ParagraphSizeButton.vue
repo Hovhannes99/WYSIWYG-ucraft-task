@@ -1,11 +1,11 @@
 <template>
-    <button class="wysiwyg-button" :class="isHeading ? 'wysiwyg-button-active' : ''" @click.prevent="showHeadings">
+    <button name="size-btn" class="wysiwyg-button" :class="isHeading ? 'wysiwyg-button-active' : ''" @click.prevent="showHeadings">
        Font Size
     </button>
     <div v-if="showHeadingOptions" class="buttons">
       <div class="wysiwyg-button-loop">
         <button class="wysiwyg-button button" v-for="size in paragraphSize" :key="size"
-                @click.prevent="heading(size)">{{ size }}
+              :name="`size-btn-${size}`" @click.prevent="heading(size)">{{ size }}
         </button>
       </div>
 

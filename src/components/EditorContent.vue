@@ -1,7 +1,7 @@
 <template>
   <div id="body" :style="{'height': `${height}px`}">
     <div id="editor" contenteditable :style="{'min-height': `${height}px`}" v-on:mouseup="handleSelectedText">
-      <p>Type your text</p>
+      <p id="intro-text">Type your text</p>
     </div>
   </div>
 </template>

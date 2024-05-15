@@ -1,8 +1,8 @@
 <template>
-  <button   class="wysiwyg-button" :class="showImageUploader ? 'wysiwyg-button-active' : ''" @click.prevent="openImageUploader">
+  <button  name="open-upload-btn"  class="wysiwyg-button" :class="showImageUploader ? 'wysiwyg-button-active' : ''" @click.prevent="openImageUploader">
     Upload image
   </button>
-  <input type="file" id="image-uploader" ref="imageInput" v-if="showImageUploader" @change="handleImageUpload" accept="image/*" />
+  <input type="file" name="upload-btn" id="image-uploader" ref="imageInput" v-if="showImageUploader" @change="handleImageUpload" accept="image/*" />
 </template>
 <script setup>
 import { ref} from "vue"

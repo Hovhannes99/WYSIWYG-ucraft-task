@@ -1,5 +1,5 @@
 <template>
-  <button  class="wysiwyg-button" :class="isUnderlined ? 'wysiwyg-button-active' : ''" @click.prevent="underline">
+  <button name="underline-btn" class="wysiwyg-button" :class="isUnderlined ? 'wysiwyg-button-active' : ''" @click.prevent="underline">
    Underline
   </button>
 </template>

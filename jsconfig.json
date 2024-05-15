@@ -9,6 +9,7 @@
         "src/*"
       ]
     },
+    "include": ["./src", "cypress.d.ts"],
     "lib": [
       "esnext",
       "dom",

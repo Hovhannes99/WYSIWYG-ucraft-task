@@ -1,5 +1,5 @@
 <template>
-  <button  class="wysiwyg-button" :class="isStrikedThrough ? 'wysiwyg-button-active' : ''" @click.prevent="strikeThrough">
+  <button name="strike-btn" class="wysiwyg-button" :class="isStrikedThrough ? 'wysiwyg-button-active' : ''" @click.prevent="strikeThrough">
    Strikethrough
   </button>
 </template>
